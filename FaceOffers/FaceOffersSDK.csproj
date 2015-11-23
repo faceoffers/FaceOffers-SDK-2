@@ -58,6 +58,7 @@
     <Compile Include="Entities\FaceOffersSharedOffer.cs" />
     <Compile Include="Entities\FaceOffersUniqueOffer.cs" />
     <Compile Include="FaceOffersService.cs" />
+    <Compile Include="Services\AccountInfo.cs" />
     <Compile Include="Services\MerchantConsumer\FaceOffersMerchantConsumerSummaryOptions.cs" />
     <Compile Include="Entities\FaceOffersMerchantDeveloper.cs" />
     <Compile Include="Entities\FaceOffersMerchantLocation.cs" />

@@ -70,15 +70,14 @@ namespace FaceOffersSDK
         }
 
         #region Configuration
-        public FaceOffersService(string apiKey, string username, FaceOffersAppClaim token = null)
+        public FaceOffersService(string apiKey, FaceOffersAppClaim token = null)
         {
-            Init(apiKey, username, token);
+            Init(apiKey, token);
         }
 
-        private void Init(string apiKey, string username, FaceOffersAppClaim token = null)
+        private void Init(string apiKey, FaceOffersAppClaim token = null)
         {
             _faceOffersAPIKey = apiKey;
-            _userName = username;
 
             if (token != null)
             {
@@ -95,9 +94,24 @@ namespace FaceOffersSDK
             {
                 GetAuthToken();
             }
+        }
 
-            if (MerchantID == Guid.Empty)
-                GetMerchantId();
+        public async Task<bool> Login(string username, string password)
+        {
+            bool result = false;
+
+            var data = new { Username = username, Password = password };
+            var response = await HttpHelper.Request(_AuthToken.Token, Urls.Account, data, HttpRequestType.POST);
+            var requestResponse = Mapper<AccountInfo>.MapFromJson(await response.ReadAsStringAsync());
+            
+            if (requestResponse != null)
+            {
+                _userName = username;
+                _merchantID = requestResponse.MerchantId;
+                result = true;
+            }
+
+            return result;
         }
 
         private void GetAuthToken()
@@ -115,17 +129,6 @@ namespace FaceOffersSDK
             var result = response.Content;
             AuthToken = JsonConvert.DeserializeObject<FaceOffersAppClaim>(result.ReadAsStringAsync().Result);
             _appID = AuthToken.AppId;
-        }
-
-        private void GetMerchantId()
-        {
-            var userUrl = string.Format("{0}/ByUsername/{1}/", Urls.Users, _userName);
-            var uResponse = HttpHelper.Request(_AuthToken.Token, userUrl, null, HttpRequestType.GET).Result;
-            var user = Mapper<FaceOffersUser>.MapFromJson(uResponse.ReadAsStringAsync().Result);
-
-            var merchantUrl = string.Format("{0}/ByUserId/{1}", Urls.Merchants, user.Id);
-            var mResponse = HttpHelper.Request(_AuthToken.Token, merchantUrl, null, HttpRequestType.GET).Result;
-            _merchantID = Mapper<FaceOffersMerchant>.MapFromJson(mResponse.ReadAsStringAsync().Result).Id;
         }
         #endregion
 
