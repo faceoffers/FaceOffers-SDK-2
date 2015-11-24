@@ -101,7 +101,8 @@ namespace FaceOffersSDK
             bool result = false;
 
             var data = new { Username = username, Password = password };
-            var response = await HttpHelper.Request(_AuthToken.Token, Urls.Account, data, HttpRequestType.POST);
+            string url = string.Format("{0}/Login", Urls.Account);
+            var response = await HttpHelper.Request(_AuthToken.Token, url, data, HttpRequestType.POST);
             var requestResponse = Mapper<AccountInfo>.MapFromJson(await response.ReadAsStringAsync());
             
             if (requestResponse != null)
