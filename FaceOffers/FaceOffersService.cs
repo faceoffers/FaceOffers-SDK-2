@@ -104,8 +104,7 @@ namespace FaceOffersSDK
             string url = string.Format("{0}/Login", Urls.Account);
             var response = await HttpHelper.Request(_AuthToken.Token, url, data, HttpRequestType.POST);
             var requestResponse = Mapper<AccountInfo>.MapFromJson(await response.ReadAsStringAsync());
-            
-            if (requestResponse != null)
+            if (requestResponse.Succeeded)
             {
                 _userName = username;
                 _merchantID = requestResponse.MerchantId;

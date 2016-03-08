@@ -6,6 +6,9 @@ namespace FaceOffersSDK
 {
     public class AccountInfo
     {
+        [JsonProperty("Succeeded")]
+        public bool Succeeded { get; set; }
+
         [JsonProperty("Id")]
         public string Id { get; set; }
 
