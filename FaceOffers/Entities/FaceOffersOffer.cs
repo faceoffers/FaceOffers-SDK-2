@@ -43,7 +43,7 @@ namespace FaceOffersSDK
         [JsonProperty("EndDate")]
         public DateTime? EndDate { get; set; }
 
-        [JsonProperty("Redemption Expiration")]
+        [JsonProperty("ExpiryDate")]
         public DateTime? ExpiryDate { get; set; }
 
         [JsonProperty("Created")]
