@@ -54,8 +54,5 @@ namespace FaceOffersSDK
 
         [JsonProperty("Published")]
         public bool Published { get; set; }
-
-        [JsonProperty("PortalBased")]
-        public bool? PortalBased { get; set; }
     }
 }
