@@ -20,6 +20,13 @@ namespace FaceOffersSDK.Services
             return Mapper<FaceOffersMerchantConsumer>.MapFromJson(await response.ReadAsStringAsync());
         }
 
+        public virtual async Task<FaceOffersMerchantConsumer> GetByConsumer(string token, Guid consumerId)
+        {
+            var url = string.Format("{0}/ByConsumer/{1}", Urls.MerchantConsumers, consumerId);
+            var response = await HttpHelper.Request(token, url, null, HttpRequestType.GET);
+            return Mapper<FaceOffersMerchantConsumer>.MapFromJson(await response.ReadAsStringAsync());
+        }
+
         public virtual async Task<FaceOffersMerchantConsumerSummaryOptions> GetProfile(string token, Guid id)
         {
             var url = string.Format("{0}/ByConsumerId/{1}", Urls.MerchantConsumers, id);
