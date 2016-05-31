@@ -13,6 +13,13 @@ namespace FaceOffersSDK.Services
             return Mapper<FaceOffersSharedOffer>.MapFromJson(await response.ReadAsStringAsync());
         }
 
+        public virtual async Task<FaceOffersSharedOffer> GetById(string token, Guid id)
+        {
+            var url = string.Format("{0}/ById/{1}", Urls.SharedOffers, id);
+            var response = await HttpHelper.Request(token, url, null, HttpRequestType.GET);
+            return Mapper<FaceOffersSharedOffer>.MapFromJson(await response.ReadAsStringAsync());
+        }
+
         public virtual async Task<FaceOffersSharedOffer> Get(string token, Guid id)
         {
             var url = string.Format("{0}/{1}", Urls.SharedOffers, id);
