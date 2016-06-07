@@ -9,6 +9,9 @@ namespace FaceOffersSDK
         [JsonProperty("Id")]
         public Guid Id { get; set; }
 
+        [JsonProperty("MerchantId")]
+        public Guid MerchantId { get; set; }
+
         [JsonProperty("Name")]
         public string Name { get; set; }
 
