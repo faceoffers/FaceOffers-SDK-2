@@ -47,6 +47,13 @@ namespace FaceOffersSDK.Services
             return Mapper<FaceOffersSharedOffer>.MapCollectionFromJson(await response.ReadAsStringAsync());
         }
 
+        public virtual async Task<IEnumerable<FaceOffersSharedOffer>> ListBySenderAndOffer(string token, Guid consumerId, Guid offerId)
+        {
+            var url = string.Format("{0}/BySenderAndOffer/{1}/{2}", Urls.SharedOffers, consumerId, offerId);
+            HttpContent response = await HttpHelper.Request(token, url, null, HttpRequestType.GET);
+            return Mapper<FaceOffersSharedOffer>.MapCollectionFromJson(await response.ReadAsStringAsync());
+        }
+
         public virtual async Task<IEnumerable<FaceOffersSharedOffer>> ListRedeemed(string token, Guid offerId)
         {
             var url = string.Format("{0}/Redeemed/{1}", Urls.SharedOffers, offerId);
