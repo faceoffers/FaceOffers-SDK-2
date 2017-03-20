@@ -82,6 +82,14 @@ namespace FaceOffersSDK.Services
             HttpContent response = await HttpHelper.Request(token, url, null, HttpRequestType.GET);
             return Mapper<FaceOffersOfferSummaryOptions>.MapCollectionFromJson(await response.ReadAsStringAsync());
         }
+        
+         public virtual async Task<int> GetOfferCount(string token, Guid merchantId)
+        {
+            var url = string.Format("{0}/Count/{1}", Urls.Offers, merchantId);
+            HttpContent response = await HttpHelper.Request(token, url, null, HttpRequestType.GET);
+            var jsonString = await response.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<int>(jsonString);
+        }
 
         public virtual async Task<FaceOffersOffer> Update(string token, FaceOffersOffer offer)
         {
