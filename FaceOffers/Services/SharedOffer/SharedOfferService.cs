@@ -46,6 +46,20 @@ namespace FaceOffersSDK.Services
             HttpContent response = await HttpHelper.Request(token, url, null, HttpRequestType.GET);
             return Mapper<FaceOffersSharedOffer>.MapCollectionFromJson(await response.ReadAsStringAsync());
         }
+        
+         public virtual async Task<IEnumerable<FaceOffersSharedOffer>> ListByMerchant(string token, Guid merchantId)
+        {
+            var url = string.Format("{0}/ByMerchant/{1}", Urls.SharedOffers, merchantId);
+            HttpContent response = await HttpHelper.Request(token, url, null, HttpRequestType.GET);
+            return Mapper<FaceOffersSharedOffer>.MapCollectionFromJson(await response.ReadAsStringAsync());
+        }
+
+        public virtual async Task<IEnumerable<FaceOffersSharedOffer>> ListBySearch(string token, Guid merchantId, string barcode)
+        {
+            var url = string.Format("{0}/ByMerchant/Search/{1}/{2}", Urls.SharedOffers, merchantId, barcode);
+            HttpContent response = await HttpHelper.Request(token, url, null, HttpRequestType.GET);
+            return Mapper<FaceOffersSharedOffer>.MapCollectionFromJson(await response.ReadAsStringAsync());
+        }
 
         public virtual async Task<IEnumerable<FaceOffersSharedOffer>> ListBySenderAndOffer(string token, Guid consumerId, Guid offerId)
         {
