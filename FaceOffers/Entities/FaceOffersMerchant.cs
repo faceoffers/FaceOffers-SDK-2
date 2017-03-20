@@ -20,5 +20,8 @@ namespace FaceOffersSDK
 
         [JsonProperty("Active")]
         public bool Active { get; set; }
+        
+        [JsonProperty("TimeZone")]
+        public string TimeZone { get; set; }
     }
 }
