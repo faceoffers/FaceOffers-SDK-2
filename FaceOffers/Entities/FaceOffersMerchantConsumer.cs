@@ -26,5 +26,11 @@ namespace FaceOffersSDK
 
         [JsonProperty("LastName")]
         public string LastName { get; set; }
+        
+        [JsonProperty("EmailOptIn")]
+        public bool EmailOptIn { get; set; }
+
+        [JsonProperty("PhoneOptIn")]
+        public bool PhoneOptIn { get; set; }
     }
 }
