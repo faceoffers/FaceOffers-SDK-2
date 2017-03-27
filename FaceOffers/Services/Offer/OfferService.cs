@@ -41,6 +41,13 @@ namespace FaceOffersSDK.Services
             return Mapper<FaceOffersOffer>.MapCollectionFromJson(await response.ReadAsStringAsync());
         }
 
+        public virtual async Task<IEnumerable<FaceOffersOffer>> ListActiveByTimeZone(string token, Guid merchantId, string timezone)
+        {
+            var url = string.Format("{0}/Active/{1}/{2}", Urls.Offers, merchantId, timezone);
+            HttpContent response = await HttpHelper.Request(token, url, null, HttpRequestType.GET);
+            return Mapper<FaceOffersOffer>.MapCollectionFromJson(await response.ReadAsStringAsync());
+        }
+        
         public virtual async Task<IEnumerable<FaceOffersOffer>> ListByApp(string token, Guid appId)
         {
             var url = string.Format("{0}/ByAppId/{1}", Urls.Offers, appId);
@@ -65,6 +72,13 @@ namespace FaceOffersSDK.Services
         public virtual async Task<IEnumerable<FaceOffersOfferSummaryOptions>> ListActiveSummary(string token, Guid merchantId)
         {
             var url = string.Format("{0}/ActiveSummary/{1}", Urls.Offers, merchantId);
+            HttpContent response = await HttpHelper.Request(token, url, null, HttpRequestType.GET);
+            return Mapper<FaceOffersOfferSummaryOptions>.MapCollectionFromJson(await response.ReadAsStringAsync());
+        }
+        
+        public virtual async Task<IEnumerable<FaceOffersOfferSummaryOptions>> ListActiveSummaryByTimeZone(string token, Guid merchantId, string timezone)
+        {
+            var url = string.Format("{0}/ActiveSummary/{1}/{2}", Urls.Offers, merchantId, timezone);
             HttpContent response = await HttpHelper.Request(token, url, null, HttpRequestType.GET);
             return Mapper<FaceOffersOfferSummaryOptions>.MapCollectionFromJson(await response.ReadAsStringAsync());
         }
